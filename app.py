@@ -68,7 +68,6 @@ def DecisionTree(psymptoms):
 def NaiveBayes(psymptoms):
     # import gaussian
     from sklearn.naive_bayes import GaussianNB
-    from 
 
     # empty model of naive gaussian
     gnb = GaussianNB()
