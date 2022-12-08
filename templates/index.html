@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+
+		<!-- Bootstrap CSS -->
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+
+		<title>COVID-19 Risk Prediction</title>
+		<style>
+			body {
+				background-image: url("../static/bg.png");
+			}
+			.card {
+				margin: 0 auto;
+				float: none;
+				margin-bottom: 10px;
+				margin-top: 70px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="card shadow-lg p-6 mb-8" style="width: 50rem">
+			<img
+				class="card-img-top"
+				src="../static/head1.png"
+				alt="Card image cap"
+			/>
+			<div class="card-body">
+				{% if name %}
+				<div
+					style="border-radius: 25px; border: 2px solid black"
+					class="result shadow-lg p-6 mb-8"
+					align="center"
+				>
+					{% if name %}
+					<p style="padding: 0.5%"><b> Hello, {{ name }}!</b></p>
+					{% endif %} {% if prediction_nb %}
+					<p style="padding: 0.5%">
+						<b>
+							Using Naive Bayes aglorithm, COVID-19 Risk is {{ prediction_nb }},
+							With {{ accuracy_nb }} % accuracy.</b
+						>
+					</p>
+					<p style="padding: 0.5%">
+						<b> Using Naive Bayes aglorithm, Error % accuracy.</b>
+					</p>
+					{% endif %} {% if prediction_dt %} {% endif %} {% if prediction_dt %}
+					<p style="padding: 0.5%">
+						<b>
+							Using Decision Tree algorithm, COVID-19 Risk is {{ prediction_dt
+							}}, With {{ accuracy_dt }} % accuracy.</b
+						>
+					</p>
+					{% endif %}
+				</div>
+				{% endif %}
+				<br />
+				<form action="{{ url_for('predict')}}" method="post">
+					<div class="form-group">
+						<label for="name">Name:</label>
+						<input
+							type="text"
+							class="form-control"
+							name="name"
+							id="name"
+							placeholder="Type your name here"
+							required
+						/>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="age">Age:</label>
+							<select id="age" name="age" class="form-control" required>
+								<option>Select...</option>
+								<option value="1">Child (1 to 14)</option>
+								<option value="0">Youth (15 to 35)</option>
+								<option value="0">Adult (36 to 55)</option>
+								<option value="0">Senior (55 and greater)</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="blood_group">Blood Group:</label>
+							<select
+								id="blood_group"
+								name="blood_group"
+								class="form-control"
+								required
+							>
+								<option>Select...</option>
+								<option value="1">O - blood group</option>
+								<option value="0">Other than O-blood group</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="medical_complication"
+							>Do you have any medical complications(Heart-Disease,Lung-Disease,
+							Diabetes, Asthma)?</label
+						>
+						<select
+							id="medical_complication"
+							name="medical_complication"
+							class="form-control"
+							required
+						>
+							<option>Select...</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="travel_history"
+							>Do you have international travel history?</label
+						>
+						<select
+							id="travel_history"
+							name="travel_history"
+							class="form-control"
+							required
+						>
+							<option>Select...</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="covid_contact"
+							>Have you contacted with any Covid-19 positive Patient?</label
+						>
+						<select
+							id="covid_contact"
+							name="covid_contact"
+							class="form-control"
+							required
+						>
+							<option>Select...</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="covid_symptoms"
+							>Are you Experiencing Dry cough, Vomiting, Nausea?</label
+						>
+						<select
+							id="covid_symptoms"
+							name="covid_symptoms"
+							class="form-control"
+							required
+						>
+							<option>Select...</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<div class="form-check">
+							<input
+								class="form-check-input"
+								type="checkbox"
+								id="gridCheck"
+								required
+							/>
+							<label class="form-check-label" for="gridCheck">
+								Above infomation is correct and true.
+							</label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Predict</button>
+					<hr />
+					<p style="text-align: center; font-size: 1.5rem">
+						<b>Members</b>
+						<!-- <a>GitHub</a> -->
+					</p>
+					<p style="text-align: center">
+						Matthew - 00000045782 <br />Michael Alexander- 00000047852
+						<br />Richard Nelson Gunawan - 00000045737 <br />
+						Ezequiel Emeraldo - 00000025545
+					</p>
+				</form>
+			</div>
+		</div>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script
+			src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
